@@ -5,6 +5,9 @@ Flip between frames
 save diagram in JSON
 or save as source code file
 beginnings of gui for sections and chapters of book
+the sections and chapters HAVE ONLY ONE or TWO entries (as proof of principle).
+it is not a finished and populated teaching system
+
 Can also dump SVG of diagrams.
 
 I can no longer work on this project which was to be an intro book on SR with interactive diagrams.
