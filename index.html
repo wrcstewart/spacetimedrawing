@@ -1,0 +1,2231 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="easeljs-0.8.1.min.js"></script>
+    <script type="text/javascript" src="SVGExporter.js"></script>
+    <script src="modernizr-custom.min.js"></script>
+    <script src="cycle.js"></script>
+    <script src="srDataFile1.js"></script>
+
+    <meta name="viewport" content="width=1280, initial-scale=0.6, maximum-scale=3.0">
+
+    <style>
+
+        #demoCanvas {
+            position: fixed;
+            top: 25px;
+            left: 70px;
+        }
+
+        #myRangeR {
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            position: fixed;
+            left: 72px;
+            width: 500px;
+            top: 528px;
+            max-height: 50px;
+            min-height: 50px;
+            height: 50px;
+        }
+
+        #myRangeR::-moz-range-track {
+            width: 500px;
+            height: 10px;
+            background: #ddd;
+            border: none;
+            background: #ff8080;
+            border-radius: 3px;
+        }
+
+        #myRangeR::-moz-range-thumb {
+
+            border: none;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background: #8080FF;
+            margin-top: -21px;
+        }
+
+        #myRangeR::-webkit-slider-runnable-track {
+            width: 500px;
+            height: 10px;
+            background: #ddd;
+            border: none;
+            background: #ff8080;
+            border-radius: 3px;
+        }
+
+        #myRangeR::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: none;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background: #8080FF;
+            margin-top: -21px;
+        }
+
+        #myRangeR:focus {
+            outline: none;
+        }
+
+        #myRangeR:focus::-webkit-slider-runnable-track {
+            background: #ccc;
+        }
+
+        #myRangeR::-ms-track {
+
+            position: fixed;
+            width: 500px;
+            top: 524px;
+            height: 50px;
+            background: #ff8080;
+            border: none;
+        }
+
+        #myRangeR::-ms-thumb {
+            max-height: 50px;
+            min-height: 50px;
+            height: 50px;
+            width: 50px;
+            background: #8080FF;
+            border-radius: 50%;
+            margin-top: 0px;
+        }
+
+        #myRangeR::-ms-fill-upper {
+            background: #ff8080;
+            color: #ff8080;
+        }
+
+        #myRangeR::-ms-fill-lower {
+            background: #ff8080;
+        }
+
+        #myRangeB {
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            position: fixed;
+            left: 72px;
+            width: 500px;
+            top: 528px;
+            max-height: 50px;
+            min-height: 50px;
+            height: 50px;
+        }
+
+        #myRangeB::-moz-range-track {
+            width: 500px;
+            height: 10px;
+            background: #ddd;
+            border: none;
+            background: #8080ff;
+            border-radius: 3px;
+        }
+
+        #myRangeB::-moz-range-thumb {
+            border: none;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background: #ff8080;
+            margin-top: -21px;
+        }
+
+        #myRangeB::-webkit-slider-runnable-track {
+            width: 500px;
+            height: 10px;
+            background: #ddd;
+            border: none;
+            background: #8080FF;
+            border-radius: 3px;
+        }
+
+        #myRangeB::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: none;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background: #ff8080;
+            margin-top: -21px;
+        }
+
+        #myRangeB:focus {
+            outline: none;
+        }
+
+        #myRangeB:focus::-webkit-slider-runnable-track {
+            background: #ccc;
+        }
+
+        #myRangeB::-ms-track {
+
+            width: 500px;
+            height: 50px;
+            background: #8080FF;
+        }
+
+        #myRangeB::-ms-fill-upper {
+            background: #8080ff;
+        }
+
+        #myRangeB::-ms-fill-lower {
+            background: #8080ff;
+        }
+
+        #myRangeB::-ms-thumb {
+            height: 50px;
+            width: 50px;
+            background: #ff8080;
+            border-radius: 50%;
+            margin-top: 0px;
+        }
+
+        #swop {
+            -webkit-appearance: none;
+            border-radius: 0;
+            position: fixed;
+            top: 498px;
+            height: 30px;
+            left: 574px;
+            width: 35px;
+            font-size: 24px;
+            text-align: center;
+            background: magenta;
+            padding: 0;
+        }
+
+        #svgDump {
+            -webkit-appearance: none;
+            border-radius: 0;
+            position: fixed;
+            top: 27px;
+            height: 30px;
+            left: 575px;
+            width: 35px;
+            font-size: 10px;
+            text-align: center;
+            padding: 0;
+        }
+
+        div#test {
+            background-color: lightblue;
+            width: 50px;
+            position: fixed;
+            left: 370px;
+            top: 750px;
+        }
+
+        div#loadsave {
+            width: 150px;
+            position: absolute;
+            left: 0px;
+            top: 15px;
+            height: 20px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #eeeeee;
+            align-content: center;
+        }
+
+        #textArea1 {
+
+            width: 380px;
+            position: fixed;
+            left: 70px;
+            top: 660px;
+            height: 100px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: start;
+            background-color: #fcfcfc;
+        }
+
+        #titleArea {
+
+            width: 535px;
+            position: fixed;
+            left: 70px;
+            top: 0px;
+            height: 18px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: start;
+        }
+
+        div#scales {
+            background-color: lightyellow;
+            width: 250px;
+            height: 20px;
+            position: fixed;
+            left: 140px;
+            top: 580px;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        div#squares {
+            background-color: lightgreen;
+            width: 35px;
+            position: fixed;
+            left: 575px;
+            top: 280px;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        div#presetPanel {
+            background: lightgrey;
+            width: 140px;
+            height: 100px;
+            position: fixed;
+            left: 470px;
+            top: 580px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        button#chapUp {
+            background: gray;
+            width: 28px;
+            position: absolute;
+            left: 72px;
+            top: 30px;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        button#chapDown {
+            background: gray;
+            width: 28px;
+            position: absolute;
+            left: 105px;
+            top: 30px;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        label#chapUpLabel {
+            background: gray;
+            width: 50px;
+            position: absolute;
+            left: 10px;
+            top: 32px;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        button#sectionUp {
+            background: gray;
+            width: 28px;
+            position: absolute;
+            left: 72px;
+            top: 70px;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        button#sectionDown {
+            background: gray;
+            width: 28px;
+            position: absolute;
+            left: 105px;
+            top: 70px;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        label#sectionUpLabel {
+            background: gray;
+            width: 50px;
+            position: absolute;
+            left: 10px;
+            top: 72px;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        div#editorPanel {
+            background: #eeeeee;
+            width: 386px;
+            height: 146px;
+            position: fixed;
+            left: 70px;
+            top: 620px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+            align-content: center;
+        }
+
+        div#editorPanelCheckBox {
+            background: #eeeeee;
+            width: 130px;
+            height: 20px;
+            position: fixed;
+            left: 70px;
+            top: 600px;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            align-content: left;
+        }
+
+        #showEditor {
+            left: 5px;
+            position: absolute;
+        }
+
+    </style>
+
+</head>
+
+<body onload="init()">
+
+<canvas id="demoCanvas" width="500" height="500" style="background-color:white"></canvas>
+
+
+<input type="range" min="-49" max="49" step="0.25" onchange="onSliderChange(event)" oninput="onSliderChange(event) "
+       style="color:yellow;height:25px;" id="myRangeR" value="20">
+
+<input type="range" min="-49" max="49" step="0.25" onchange="onSliderChange(event)" oninput="onSliderChange(event) "
+       style="color:yellow;height:25px;" id="myRangeB" value="0">
+
+
+<div id="scales">
+    <input type="radio" name="scale" id="buttonRel" onclick="scaleChange(this.value)" value="Rel">Relativistic
+    <input type="radio" name="scale" id="buttonTrans" onclick="scaleChange(this.value)" value="Trans"> Transitional
+    <input type="radio" name="scale" id="buttonGal" onclick="scaleChange(this.value)" value="Gal" checked> Galilean
+</div>
+
+
+<div id="squares">
+    <br>
+    <input type="radio" id="squares4" name="squares" onclick="scaleChange(this.value)" value="4">4<br><br>
+    <input type="radio" id="squares8" name="squares" onclick="scaleChange(this.value)" value="8">8<br><br>
+    <input type="radio" id="squares10" name="squares" onclick="scaleChange(this.value)" value="10">10<br><br>
+    <input type="radio" id="squares20" name="squares" onclick="scaleChange(this.value)" value="20" checked>20<br><br>
+    <input type="radio" id="squares40" name="squares" onclick="scaleChange(this.value)" value="40">40
+</div>
+
+
+<button id="swop" onclick="swopFrames()">&#8703;</button>
+<button id="svgDump" onclick="svgDump()">SVG</button>
+
+
+<div id="editorPanel">Editor
+    <div id="loadsave">
+        <button onclick="saveState()">&DownArrow; </button>
+        <button onclick="loadButton()">&UpArrow;</button>
+        <textarea id="textArea1">test text</textarea>
+    </div>
+</div>
+
+
+<div id="editorPanelCheckBox">
+    <input type="checkbox" id="showEditor" onclick="onClickShowEditorPanel()">Advanced Use</input>
+</div>
+
+
+<textarea id="titleArea">Loading</textarea>
+
+<div id="presetPanel">
+    Preset Diagrams
+    <button id="chapDown" onclick="chapDecr()">&DownArrow; </button>
+    <button id="chapUp" onclick="chapIncr()">&UpArrow;</button>
+    <label id="chapUpLabel" for="chapUp">Chapter</label>
+
+    <button id="sectionDown" onclick="sectionDecr()">&DownArrow; </button>
+    <button id="sectionUp" onclick="sectionIncr()">&UpArrow;</button>
+    <label id="sectionUpLabel" for="sectionUp">Section</label>
+</div>
+
+
+<script>
+
+    //these var mainly json and editor handling.
+    var curChap = 0;
+    var curSect = 0;
+    var loadFromPresets = true;
+    var hideEditorPanel = true;
+    var briefNote = "Optional brief user note";
+    var gridOpacity = 0.5;
+    var val;
+    var currentModeString = "Gal";
+    var srAppV = "WRCS-SR1-V0.1";//version must also determine the json structure.
+    var appU = "http://www.google.com";
+    var jsonStorageU = "undefined";
+    var descript = "DIAGRAM 1.1: Start To Explore Galilean Mode";
+    var jsonObjToSave;
+    var ss;
+    var justLoaded = false;
+    var currentScaleValue;
+    var jsonObj;
+    var v;
+    var tempPoint;
+    var coordLabelAlpha = 1.0;
+    var readoutPanelRed;
+    var readoutPanelBlue;
+
+
+    //basic plotting stuff
+    var globalIx = 0;
+    var exporter;
+    var swopButton;
+    var sliderR, sliderB;
+    var stage;
+    var rectIn, wkR, plR, hypR, plFr, wkFr, hypFr;//plot rects and size data
+    var wkCol, plCol;
+    var hypCol = "rgba(0,0,0,0)";
+    var calHypCol = "rgba(0,255,0,0.7)";
+    var hypStyle = 1;
+    var unitX = 1;
+    var unitT = 1;
+    var unitXSlow = 6.0e6;
+    var unitXMed = 6.0e7;
+    var unitXFast = 1.0e8;
+    var unitXcs = 3.0e8;
+    var nSquares;
+    var nSquaresInit = 20;
+    var gridPaddingFactor = 6; //when the rest grid is Lorenz mapped it will be compressed on screen, so put more
+    // in some extra squares, thus this compressed grid will still fill screen
+    //up to very near light speed - this is rather lazy and computationally expensive!
+    var c = 3.0e8;
+    var restGrid = [];
+    var movingGrid = [];   //use restGrid, v, and Lorentz to generate.
+    var restAxes = [];
+    var movingAxes = [];
+    var lightCross = [];
+    var calHyp = [];
+    var restGridsColor, movingGridsColor;
+    var restColor = "red";
+    var labelTextColor = "rgb(0,0,255)", labelBackgroundColor = "rgb(255,0,0)";
+    var axesStyle = 3;
+    var gridsStyle = 0.3;
+    var scaleLow = true;
+    var swopVelocity = 2.8e7;
+    var initialSliderValue = 20;
+    var mxSlider = 49;
+    var compressionMin = 2.0e5;
+    var compressionMax = 2.8e8;
+
+
+    // -- data structure for the draggable point events, drag handles, line drawing
+    var pointLabelStyle = "20px Arial";
+    var pointLabelColour = "rgba(0,0,0,0.5)";
+    var pointRadius = 3;
+    var xPointLabel = 3;
+    var yPointLabel = 3;
+    var xGhostLabel = -6;
+    var yGhostLabel = -6;
+    var connectZone = 6;
+    var resetZone = 10;
+    var ghostColour = "rgba(0,0,0,0.6)";
+    var dragHandleColour = "rgba(0,0,0,0.05)";
+    var ghostStyle = "16px Arial";
+    var ghostRadius = 26;
+    var xPointOffset = 25;
+    var drags = []; // IMPORTANT data structure - hols all the data for the point events
+    var drag1;
+    var drag2; // not sure if used -check this.
+    var pointNames = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];//these can be changed in the editor or here
+    var notUsed = false;//arb  to fill the drags array
+    var used = true;//mark that a line has been drawn to the point with that index in drags array.
+    var lightEpsilon = .5; //determines when the gradient of a drawn line should be taken as c
+
+
+    // --debugging variables
+    var testState = 0;
+    var testStateStr;
+    var debugVar1;
+
+
+    //utility functions
+    function touchStart(event) {
+        event.preventDefault();
+    }
+    ;
+    function sgn(num) {
+        return (num / Math.abs(num))
+    }
+    ;
+    function sqrt(num) {
+        return (Math.sqrt(num))
+    }
+    ;
+    function abs(num) {
+        return (Math.abs(num))
+    }
+    ;
+    function log10(num) {
+        return ( Math.log(num) * Math.LOG10E)
+    }
+    ;
+    function PointXT(pX, pT) {
+        this.x = pX;
+        this.t = pT;
+    }
+    ;
+    function colToStr(r, g, b, t) {
+        var colString = "rgba(" + r + "," + g + "," + b + "," + t + ")";
+        return colString;
+    }
+    ;
+    function integerParity(n) {
+        if ((n % 2) == 0) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+
+    // some basic velocity handling and color setting operations
+
+    function setAllColours(restColor) {
+        if (restColor == "red") {
+            restGridsColor = colToStr(255, 64, 64, gridOpacity);
+            movingGridsColor = colToStr(0, 0, 255, gridOpacity);
+            labelTextColor = "rgb(96,96,255)";
+            labelBackgroundColor = "rgb(255,150,150)";
+        }
+        else {
+            restGridsColor = colToStr(0, 0, 255, gridOpacity);
+            movingGridsColor = colToStr(255, 64, 64, gridOpacity);
+            labelTextColor = "rgb(255,96,96)";
+            labelBackgroundColor = "rgb(150,150,255)";
+        }
+    }
+
+    function showVelocity(v) {
+
+        (document.getElementById("VLabel")).style.fontWeight = "bold";
+
+        (document.getElementById("VLabel")).style.background = labelBackgroundColor;
+        (document.getElementById("VLabel")).style.color = labelTextColor;
+
+        (document.getElementById("VLabel")).innerHTML = "v=" + (v / c).toPrecision(2) + "c";
+
+        (document.getElementById("GammaLabel")).style.fontWeight = "bold";
+
+        (document.getElementById("GammaLabel")).style.background = labelBackgroundColor;
+        (document.getElementById("GammaLabel")).style.color = labelTextColor;
+
+        var gamma = 1 / Math.sqrt(1 - (( v * v) / (c * c)));
+
+        (document.getElementById("GammaLabel")).innerHTML = "\u03B3" + "=" + +gamma.toPrecision(8);
+
+    }
+
+
+    // the next set of functions are concerned with genrating arrays of xt points that will be subsequently plotted.
+
+    function lorentzTransPoint(pointXT, v) {
+        // pass in beta as a parameter if you need more efficiency.
+        var x = pointXT.x;
+        var t = pointXT.t;
+        var xDash, tDash, beta1;
+        beta1 = (1 / Math.sqrt(1 - ((v * v) / (c * c))));
+        xDash = beta1 * ( x - v * t);
+        tDash = beta1 * ( t - ( (v * x) / (c * c)) );
+        var pDash = new PointXT(xDash, tDash);
+        return (pDash);
+    }
+
+
+    function lorentzTransPointModify(pointXT, v, outPointXT) {
+        // pass in beta as a parameter if you need more efficiency.
+        var x = pointXT.x;
+        var t = pointXT.t;
+        var xDash, tDash, beta1;
+        beta1 = (1 / Math.sqrt(1 - ((v * v) / (c * c))));
+        xDash = beta1 * ( x - v * t);
+        tDash = beta1 * ( t - ( (v * x) / (c * c)) );
+        if (Math.abs(xDash) < (.001 * unitX * nSquares)) {
+            xDash = 0.0;
+        }
+        outPointXT.x = xDash;
+        outPointXT.t = tDash;
+    }
+
+
+    function lorentzTransformPointArray(aIn, aTransformed, v) {
+        var i;
+        while (aTransformed.length > 0) {
+            aTransformed.shift();
+        }
+        ;//back to empty array.
+        for (i = 0; i < aIn.length; i++) {
+            aTransformed[i] = lorentzTransPoint(aIn[i], v)
+        }
+    }
+
+
+    function generateXTRestGrid(restGrid, unitX, unitT, nSquares, gridPaddingFactor) {
+        //later plot line from point[i] to point[i+1] etc
+        var lowestGridLineIx = -( nSquares * gridPaddingFactor ) / 2;
+        var highestGridLineIx = ( nSquares * gridPaddingFactor ) / 2;
+
+        var i;
+        var arrayIx = 0;
+
+        while (restGrid.length > 0) {
+            restGrid.shift();
+        }
+        ;//back to empty grid.
+
+
+        for (i = lowestGridLineIx; i <= highestGridLineIx; i++) {
+
+            restGrid[arrayIx] = new PointXT(i * unitX, lowestGridLineIx * unitT);
+            arrayIx++;
+            restGrid[arrayIx] = new PointXT(i * unitX, highestGridLineIx * unitT);
+            arrayIx++;
+        }
+
+        for (i = lowestGridLineIx; i <= highestGridLineIx; i++) {
+
+            restGrid[arrayIx] = new PointXT(lowestGridLineIx * unitX, i * unitT);
+
+
+            arrayIx++;
+            restGrid[arrayIx] = new PointXT(highestGridLineIx * unitX, i * unitT);
+            arrayIx++;
+        }
+    }
+
+
+    function generateXTRestAxes(restAxes1, unitX, unitT, nSquares, gridPaddingFactor) {
+        // although generated in the grid - it is uesful to have axes as separate structure
+        // so can plot differently.
+
+        var arrayIx = 0;
+
+        var lowestGridLineIx = -( nSquares * gridPaddingFactor ) / 2;
+        var highestGridLineIx = ( nSquares * gridPaddingFactor ) / 2;
+
+
+        restAxes1[arrayIx] = new PointXT(0, lowestGridLineIx * unitT);
+        arrayIx++;
+
+        restAxes1[arrayIx] = new PointXT(0, highestGridLineIx * unitT);
+        arrayIx++;
+
+        restAxes1[arrayIx] = new PointXT(lowestGridLineIx * unitX, 0);
+        arrayIx++;
+
+        restAxes1[arrayIx] = new PointXT(highestGridLineIx * unitX, 0);
+        arrayIx++;
+
+    }
+
+
+    function generateLightCross(anArray, unitX, unitT, nSquares, gridPaddingFactor) {
+
+
+        anArray.length = 4;
+
+        anArray[0] = new PointXT(-nSquares * unitX, -nSquares * unitT);
+        anArray[1] = new PointXT(nSquares * unitX, nSquares * unitT);
+        anArray[2] = new PointXT(-nSquares * unitX, nSquares * unitT);
+        anArray[3] = new PointXT(nSquares * unitX, -nSquares * unitT);
+    }
+    function generateHyperbola(hyp, scX, scT, nSquares, nPoints, pX, pT) {
+
+        var x, t, i; // x t etc here are in X T space but uncapitalised used for convenience.
+
+        var pXDc = pX / c;//use my development algorithm in which x always in light seconds.
+
+        var pXDcAbs = abs(pXDc);
+        var pTAbs = abs(pT);
+
+        var dx = (scX * nSquares) / (c * (nPoints));
+        var dt = (scT * nSquares) / nPoints;
+        var stX = -(scX * nSquares) / (c * 2.0);
+
+        var stT = -(scT * nSquares) / 2.0;
+
+        var arrayIx = 0;
+        var oldArrayIx;
+
+        if (pTAbs > pXDcAbs) {
+            x = stX;
+            for (i = 0; i <= nPoints; i++) {
+
+                t = sgn(pT) * sqrt(((pT * pT) - (pXDc * pXDc)) + x * x);
+
+                hyp[arrayIx] = new PointXT(x * c, t);
+
+
+                x += dx;
+                arrayIx++;
+
+
+            }
+
+        }
+        if (pTAbs == pXDcAbs) generateLightCross(hyp, c, unitT, nSquares);
+
+        if (pTAbs < pXDcAbs) {
+            t = stT;
+            for (i = 0; i <= nPoints; i++) {
+
+                x = sgn(pX) * sqrt(((pXDc * pXDc) - (pT * pT)) + t * t);
+
+                hyp[arrayIx] = new PointXT(x * c, t);
+
+
+                t += dt;
+                arrayIx++;
+
+
+            }
+
+        }
+
+
+    }
+
+
+    //the next set of functions plot lines based on the arrays set up by the functions above.
+
+
+    function plotLines(lines, frame, widthX, heightT, colour, lineStyle) {
+        // plot main axis first
+        var l = frame.l;
+        var r = frame.r;
+        var t = frame.t;
+        var b = frame.b;
+        var width = r - l;
+        var height = b - t;
+        //var widthX = nSquares * unitX;
+        //var heightT = nSquares * unitT;
+        var scaleXx = width / widthX;
+        var tScale = height / heightT;
+        var centreFrameX = l + width / 2;
+        var centreFrameT = t + height / 2;
+        var xLineStart, tLineStart, xLineEnd, tLineEnd;
+        var nLines = (lines.length) / 2;
+        var lineIx;
+        var arrayIx = 0;
+
+        plR.graphics.setStrokeStyle(lineStyle);
+
+        plR.graphics.beginStroke(colour);
+
+        for (lineIx = 0; lineIx < nLines; lineIx++) {
+
+            xLineStart = centreFrameX + (lines[arrayIx].x) * scaleXx;
+            tLineStart = centreFrameT + (lines[arrayIx].t) * -tScale;
+            arrayIx++;
+
+            xLineEnd = centreFrameX + (lines[arrayIx].x) * scaleXx;
+            tLineEnd = centreFrameT + (lines[arrayIx].t) * -tScale;
+            arrayIx++;
+
+            plR.graphics.moveTo(xLineStart, tLineStart);
+            plR.graphics.lineTo(xLineEnd, tLineEnd);
+        }
+    }
+
+
+    function plotPolySegment(shape, points, frame, widthX, heightT, colour, lineStyle) {
+        var l = frame.l;
+        var r = frame.r;
+        var t = frame.t;
+        var b = frame.b;
+        var width = r - l;
+        var height = b - t;
+        // var widthX = nSquares * unitX;
+        //var heightT = nSquares * unitT;
+        var scaleXx = width / widthX;
+        var tScale = height / heightT;
+        var centreFrameX = l + width / 2;
+        var centreFrameT = t + height / 2;
+
+        var nPoints = points.length;
+
+        var pointIx = 0;
+        var pX, pT;
+        var pXStart, pTStart;
+
+
+        shape.graphics.setStrokeStyle(lineStyle);//was plR
+
+        shape.graphics.beginStroke(colour);
+
+        pXStart = centreFrameX + (points[0].x) * scaleXx;
+        pTStart = centreFrameT + (points[0].t) * -tScale;
+        shape.graphics.moveTo(pXStart, pTStart);
+
+
+        for (point = 1; point < nPoints; point++) {
+
+            pX = centreFrameX + (points[point].x) * scaleXx;
+            pT = centreFrameT + (points[point].t) * -tScale;
+
+
+            shape.graphics.lineTo(pX, pT);
+            shape.graphics.moveTo(pX, pT);
+
+        }
+        shape.graphics.endStroke();
+    }
+
+    // the next set of functions set up the different rectangles to draw into.
+    //probably need a tidy up.
+
+
+    function Fr(left, right, top, bottom) {
+        this.l = left,
+                this.r = right,
+                this.t = top,
+                this.b = bottom
+    }
+
+
+    function setUpPlotRect(plFr, plCol) {
+
+        //wkR =    new createjs.Shape();
+        plR = new createjs.Shape();
+        plR.graphics.beginFill(plCol).drawRect(plFr.l, plFr.t, (plFr.r - plFr.l), (plFr.b - plFr.t));
+        maskRect = new createjs.Shape();
+        maskRect.graphics.beginFill(plCol).drawRect(plFr.l, plFr.t, (plFr.r - plFr.l), (plFr.b - plFr.t));
+        plR.mask = maskRect;
+        stage.addChild(plR);
+    }
+
+
+    function setUpWorkRect(wkFr, wkCol) {
+
+        wkR = new createjs.Shape();
+
+        wkR.graphics.beginFill(wkCol).drawRect(wkFr.l, wkFr.t, (wkFr.r - wkFr.l), (wkFr.b - wkFr.t));
+        stage.addChild(wkR);
+    }
+
+
+    function setUpHypRect(hypFr, hypCol) {
+
+        hypR = new createjs.Shape();
+
+        hypR.graphics.beginFill(hypCol).drawRect(hypFr.l, hypFr.t, (hypFr.r - hypFr.l), (hypFr.b - hypFr.t));
+        hypR.mask = maskRect;
+        stage.addChild(hypR);
+    }
+
+    // These two functiions map slider position to/from velocity related value.
+
+    function processSlider(mxSliderVal, sliderUnitV, maxV, sliderValue) {
+
+        if (sliderValue == 0) {
+            return 0
+        }
+        ;
+
+        var sliderValueAbs = Math.abs(sliderValue);
+
+
+        var logRange = log10(maxV / sliderUnitV);
+
+
+        var logValue = ((sliderValueAbs - 1) / (mxSliderVal - 1)) * logRange;
+
+
+        var mappedVal = sliderUnitV * Math.pow(10, logValue);
+
+
+        if (sliderValue < 0) {
+            return -mappedVal
+        }
+        ;
+
+        return mappedVal;
+    }
+
+    function unprocessSlider(mxSliderVal, sliderUnitV, maxV, v) {
+
+        if (v == 0) {
+            return 0
+        }
+        ;
+
+        var sliderV;
+        var vAbs = Math.abs(v);
+        var logRange = log10(maxV / sliderUnitV);
+
+        var logValue = log10(vAbs / sliderUnitV);
+
+        sliderV = ((logValue / logRange) * (mxSlider - 1)) + 1;
+
+        if (v < 0) sliderV = -sliderV;
+
+        return (sliderV);
+    }
+
+
+    //functions that explained by their name.
+
+    function checkAndAdjustXScale(v) {
+
+        if ((unitX == unitXSlow) && (Math.abs(v) <= swopVelocity )) {
+            return
+        }
+        ;
+        if ((unitX == unitXcs) && (Math.abs(v) > swopVelocity )) {
+            return
+        }
+        ;
+        if ((unitX == unitXSlow) && (Math.abs(v) > swopVelocity )) {
+            unitX = unitXcs
+        }
+        ;
+        if ((unitX == unitXcs) && (Math.abs(v) <= swopVelocity )) {
+            unitX = unitXSlow
+        }
+        ;
+        generateXTRestGrid(restGrid, unitX, unitT, nSquares, gridPaddingFactor);
+        generateXTRestAxes(restAxes, unitX, unitT, nSquares, gridPaddingFactor);
+        //(document.getElementById("xScaleLabel")).innerHTML = "x unit "+ unitX.toPrecision(2);
+
+        hypR.graphics.clear();
+
+        generateHyperbola(calHyp, unitX, unitT, nSquares, 161, 0, 1);
+        plotPolySegment(hypR, calHyp, hypFr, (nSquares * unitX), (nSquares * unitT), calHypCol, hypStyle);
+
+        //generateHyperbola(calHyp,unitX,unitT,nSquares,81,0,0);
+        //plotPolySegment(calHyp,hypFr,nSquares,unitX,unitT,"rgba(0,0,0,0.5)",3);
+
+        generateHyperbola(calHyp, unitX, unitT, nSquares, 161, -unitX * 1.0, 0);
+        plotPolySegment(hypR, calHyp, hypFr, (nSquares * unitX), (nSquares * unitT), calHypCol, hypStyle);
+
+        return;
+    }
+
+
+    function scaleChange(value) {
+        currentScaleValue = value;
+        var val;
+
+        if (restColor == "red") {
+            val = sliderR.value;
+        } else {
+            val = sliderB.value;
+        }
+        ;
+
+
+        v = processSlider(mxSlider, compressionMin, compressionMax, val);
+
+
+        switch (value) {
+            case "Gal" :
+            {
+                unitX = unitXSlow;
+                lightEpsilon = .5;
+            }
+                break;
+            case "Trans" :
+            {
+                unitX = unitXMed;
+                lightEpsilon = .15;
+            }
+                break;
+            case "Rel" :
+            {
+                unitX = unitXcs;
+                lightEpsilon = .05;
+            }
+                break;
+            case "4":
+            {
+                nSquares = 4;
+                gridPaddingFactor = 20;
+                readoutPanelGrey3.updateReadout(nSquaresString());
+            }
+                break;
+            case "8":
+            {
+                nSquares = 8;
+                gridPaddingFactor = 20;
+                readoutPanelGrey3.updateReadout(nSquaresString());
+            }
+                break;
+            case "10":
+            {
+                nSquares = 10;
+                gridPaddingFactor = 16;
+                readoutPanelGrey3.updateReadout(nSquaresString());
+            }
+                break;
+            case "20":
+            {
+                nSquares = 20;
+                gridPaddingFactor = 8;
+                readoutPanelGrey3.updateReadout(nSquaresString());
+            }
+                break;
+            case "40":
+            {
+                nSquares = 40;
+                gridPaddingFactor = 4;
+                readoutPanelGrey3.updateReadout(nSquaresString());
+            }
+                break;
+
+            default:
+                return;
+
+
+        }
+
+
+        generateXTRestGrid(restGrid, unitX, unitT, nSquares, gridPaddingFactor);
+        generateXTRestAxes(restAxes, unitX, unitT, nSquares, gridPaddingFactor);
+
+
+        hypR.graphics.clear();
+
+        generateHyperbola(calHyp, unitX, unitT, nSquares, 161, 0, 1);
+        plotPolySegment(hypR, calHyp, hypFr, (nSquares * unitX), (nSquares * unitT), calHypCol, hypStyle);
+
+        generateHyperbola(calHyp, unitX, unitT, nSquares, 161, 0, -1);
+        plotPolySegment(hypR, calHyp, hypFr, (nSquares * unitX), (nSquares * unitT), calHypCol, hypStyle);
+
+
+        generateHyperbola(calHyp, unitX, unitT, nSquares, 161, -unitX * 1.0, 0);
+        plotPolySegment(hypR, calHyp, hypFr, (nSquares * unitX), (nSquares * unitT), calHypCol, hypStyle);
+
+        generateHyperbola(calHyp, unitX, unitT, nSquares, 161, unitX, 0);
+        plotPolySegment(hypR, calHyp, hypFr, (nSquares * unitX), (nSquares * unitT), calHypCol, hypStyle);
+
+
+        plR.graphics.clear();
+        plR.graphics.beginFill(plCol).drawRect(plFr.l, plFr.t, (plFr.r - plFr.l), (plFr.b - plFr.t));
+
+
+        plotLines(restGrid, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, gridsStyle);
+        plotLines(restAxes, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, axesStyle);
+
+
+        lorentzTransformPointArray(restGrid, movingGrid, -v);
+        lorentzTransformPointArray(restAxes, movingAxes, -v);
+
+        plotLines(movingGrid, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, gridsStyle);
+        plotLines(movingAxes, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, axesStyle);
+
+
+        readoutPanelGrey.updateReadout(gridSquareString());
+        readoutPanelYellow.updateReadout(modeString());
+
+        updateScaleDrags();
+        updateAllConnects();
+
+        stage.update();
+
+    }
+
+
+    function updateScaleDrags() {
+        var i;
+        for (i = 0; i < drags.length; i++)
+            drags[i].updateScale();
+
+
+    }
+
+    function updateXTDrags(vel) {
+        var i;
+        for (i = 0; i < drags.length; i++)
+            drags[i].updateXT(vel);
+        dummy4 = 6;
+
+    }
+
+    function isNear(x1, y1, x2, y2) {
+        var absXDiff = Math.abs(x1 - x2);
+        var absYDiff = Math.abs(y1 - y2);
+        if ((absXDiff < connectZone) && (absYDiff < connectZone)) {
+            return (true)
+        }
+        ;
+        return (false);
+    }
+
+
+    function onSliderChange(event) {
+
+        // event.preventDefault();
+        //var val;
+
+
+        if (restColor == "red") {
+            val = sliderR.value;
+
+            //sliderR.click();
+        } else {
+            val = sliderB.value;
+            //sliderB.click();
+        }
+
+
+        v = processSlider(mxSlider, compressionMin, compressionMax, val);
+
+
+        if (((v > 0.05 * c) || (v < -0.05 * c)) && ((unitX == unitXSlow) && ( nSquares > 8)  )) {
+
+            gridPaddingFactor = nSquares * 4;
+
+
+        }
+
+
+
+        if (((v > 0.5 * c) || (v < -0.5 * c)) && ((unitX == unitXMed) && ( nSquares > 8)  )) {
+
+            gridPaddingFactor = nSquares * 2;
+
+
+        }
+
+        else {
+            gridPaddingFactor = 6
+        }
+
+
+        if (((v > 0.1 * c) || (v < -0.1 * c)) && ((unitX == unitXSlow)   )) {
+
+            document.getElementById('buttonRel').checked = true;
+            unitX = unitXcs;
+            scaleChange("Rel");
+        }
+
+        if (((v > 0.4 * c) || (v < -0.4 * c)) && (unitX == unitXMed   )) {
+
+            document.getElementById('buttonRel').checked = true;
+            unitX = unitXcs;
+            scaleChange("Rel");
+        }
+        if ((v > 0.25 * c) || (v < -0.25 * c)) {
+            document.getElementById('buttonGal').disabled = true;
+        } else {
+            document.getElementById('buttonGal').disabled = false;
+        }
+
+        // if (unitXSlow == unitX && abs(v) > 1.0e8)  {gridPaddingFactor =200;} else {gridPaddingFactor =10};
+
+        //checkAndAdjustXScale(v);
+
+        //(document.getElementById("VLabel")).innerHTML = (v/c).toPrecision(2)+ " c";
+        //showVelocity(v);
+
+        drags[globalIx].updatePanels();
+
+        //var v = (val /50)* 0.999* unitX * 10;
+
+        //generateLightCross(lightCross,c,unitT,nSquares);
+
+
+        plR.graphics.clear();
+        plR.graphics.beginFill(plCol).drawRect(plFr.l, plFr.t, (plFr.r - plFr.l), (plFr.b - plFr.t));
+
+        generateXTRestGrid(restGrid, unitX, unitT, nSquares, gridPaddingFactor);
+        generateXTRestAxes(restAxes, unitX, unitT, nSquares, gridPaddingFactor);
+
+        //setUpWorkRect(wkFr,wkCol);
+        //setUpPlotRect(plFr,plCol);
+
+        plotLines(restGrid, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, gridsStyle);
+        plotLines(restAxes, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, axesStyle);
+
+        //plotLines(lightCross,plFr,(nSquares*unitX),(nSquares*unitT),"yellow",gridsStyle);
+
+
+        lorentzTransformPointArray(restGrid, movingGrid, -v);
+        lorentzTransformPointArray(restAxes, movingAxes, -v);
+
+        plotLines(movingGrid, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, gridsStyle);
+        plotLines(movingAxes, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, axesStyle);
+
+        //generateHyperbola(calHyp,unitX,unitT,nSquares,81,unitXcs,2);
+        //plotLines(calHyp,plFr,nSquares,unitX,unitT,"orange",2);
+        // plotPolySegment(calHyp,hypFr,nSquares,unitX,unitT,"orange",2);
+
+        readoutPanelGrey2.updateReadout(velocityString());
+
+        stage.update();
+
+    }
+    function init() {
+
+        if (hideEditorPanel) document.getElementById("editorPanel").style.display = 'none';
+
+        document.getElementById("titleArea").value = descript;
+
+        tempPoint = new PointXT(0, 0);
+        swopButton = (document.getElementById("swop"));
+        nSquares = nSquaresInit;
+        unitX = unitXSlow;
+
+        document.getElementById('buttonGal').checked = true;
+        document.getElementById('squares20').checked = true;
+
+        sliderR = document.getElementById("myRangeR");
+        sliderB = document.getElementById("myRangeB");
+        sliderB.style.display = "none";
+        sliderR.value = initialSliderValue;
+        val = sliderR.value;
+        v = processSlider(mxSlider, compressionMin, compressionMax, val);
+
+        setAllColours(restColor);
+
+        generateXTRestGrid(restGrid, unitX, unitT, nSquares, gridPaddingFactor);
+        generateXTRestAxes(restAxes, unitX, unitT, nSquares, gridPaddingFactor);
+
+        lorentzTransformPointArray(restGrid, movingGrid, (-v));
+        lorentzTransformPointArray(restAxes, movingAxes, (-v));
+
+        var myColour = colToStr(255, 128, 0, 0.6);
+
+        stage = new createjs.Stage("demoCanvas");
+        createjs.Touch.enable(stage, false, true);
+        stage.preventSelection = false;
+        stage.mouseMoveOutside = true;
+
+        plFr = new Fr(0, 500, 0, 500);
+        wkFr = new Fr(0, 500, 0, 500);
+        hypFr = new Fr(0, 500, 0, 500);
+        wkCol = "rgb(255,255,255)";
+        plCol = "rgb(255,255,255)";
+        setUpWorkRect(wkFr, wkCol);
+        setUpPlotRect(plFr, plCol);
+        setUpHypRect(hypFr, hypCol);
+
+
+        plotLines(restGrid, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, gridsStyle);
+        plotLines(restAxes, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, axesStyle);
+        plotLines(movingGrid, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, gridsStyle);
+        plotLines(movingAxes, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, axesStyle);
+
+
+        drags[0] = new DragPoint(pointNames[0], 225, 250, 0);//origin
+        drags[1] = new DragPoint(pointNames[1], 275, 50, 1);
+        drags[2] = new DragPoint(pointNames[2], 225, 70, 2);
+
+        drags[3] = new DragPoint(pointNames[3], 275, 90, 3);
+        drags[4] = new DragPoint(pointNames[4], 225, 110, 4);
+
+        drags[5] = new DragPoint(pointNames[5], 275, 130, 5);
+        drags[6] = new DragPoint(pointNames[6], 225, 355, 6);
+
+        drags[7] = new DragPoint(pointNames[7], 275, 375, 7);
+        drags[8] = new DragPoint(pointNames[8], 225, 395, 8);
+
+        drags[9] = new DragPoint(pointNames[9], 275, 415, 9);
+        drags[10] = new DragPoint(pointNames[10], 225, 435, 10);
+
+
+
+
+        readoutPanelRed = new ReadoutPanel(2, 250, 2, 22, "rgba(255,0,0,0.2)");
+
+        readoutPanelBlue = new ReadoutPanel(2, 250, 26, 46, "rgba(0,0,255,0.2)");
+
+
+        readoutPanelGrey = new ReadoutPanel(190, 500, 480, 500, "rgba(255,255,0,0.3)");
+        readoutPanelGrey.updateReadout(gridSquareString());
+        readoutPanelGrey2 = new ReadoutPanel(190, 500, 460, 480, "rgba(230,230,230,0.3)");
+        readoutPanelGrey2.updateReadout(velocityString());
+        readoutPanelGrey3 = new ReadoutPanel(2, 190, 460, 480, "rgba(0,255,0,0.4)");
+        readoutPanelGrey3.updateReadout(nSquaresString());
+        readoutPanelYellow = new ReadoutPanel(2, 190, 480, 500, "rgba(255,255,0,0.3)");
+        readoutPanelYellow.updateReadout(modeString());
+
+
+        drags[globalIx].updatePanels();
+
+
+        stage.update();
+
+        saveState();
+    }
+    function pointLabelColourF() {
+        return pointLabelColour;
+    }
+
+    function gridSquareString() {
+
+        return ("Each Square " + unitX.toPrecision(3) + " m horiz. by 1 s vert.")
+    }
+
+    function velocityString() {
+        var gamma = 1 / Math.sqrt(1 - (( v * v) / (c * c)));
+        return ("VELOCITY " + v.toPrecision(3) + " m/s" + "     \u03B3" + "=" + +gamma.toPrecision(8))
+    }
+
+    function nSquaresString() {
+
+        return ("REST GRID:" + nSquares.toString() + " X " + nSquares.toString()  );
+    }
+
+
+    function modeString() {
+
+        switch (unitX) {
+
+            case unitXSlow:
+            {
+                currentModeString = "Gal";
+                return ("SCALE: Classical")
+
+            }
+
+            case unitXMed:
+            {
+                currentModeString = "Trans";
+                return ("SCALE: Transitional")
+            }
+            case unitXcs:
+            {
+                currentModeString = "Rel";
+                return ("SCALE: Relativistic")
+            }
+            default:
+            {
+                return ("error in Mode string")
+            }
+        }
+
+    }
+
+
+    function swopFrames() {
+
+        var val;
+
+        if (restColor == "red") {
+            val = sliderR.value;
+            val = -val;
+            sliderR.style.display = "none";
+            sliderB.style.display = "inline";
+            sliderB.value = val;
+            restColor = "blue";
+        } else {
+            val = sliderB.value;
+            val = -val;
+            sliderB.style.display = "none";
+            sliderR.style.display = "inline";
+            sliderR.value = val;
+            restColor = "red";
+        }
+        ;
+
+        setAllColours(restColor);
+
+        v = processSlider(mxSlider, compressionMin, compressionMax, val);
+
+        readoutPanelGrey2.updateReadout(velocityString());
+
+        plR.graphics.clear();
+        plR.graphics.beginFill(plCol).drawRect(plFr.l, plFr.t, (plFr.r - plFr.l), (plFr.b - plFr.t));
+
+
+        plotLines(restGrid, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, gridsStyle);
+        plotLines(restAxes, plFr, (nSquares * unitX), (nSquares * unitT), restGridsColor, axesStyle);
+
+
+        lorentzTransformPointArray(restGrid, movingGrid, -v);
+        lorentzTransformPointArray(restAxes, movingAxes, -v);
+
+        plotLines(movingGrid, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, gridsStyle);
+        plotLines(movingAxes, plFr, (nSquares * unitX), (nSquares * unitT), movingGridsColor, axesStyle);
+
+
+        updateXTDrags(-v);
+        updateAllConnects();
+
+
+        stage.update();
+    }
+
+    function ReadoutPanel(left, right, top, bottom, bkCol) {
+        this.readoutPanelContainer = new createjs.Container();
+        this.readoutPanelBackground = new createjs.Shape();
+        this.readoutPanelBackground.graphics.beginFill(bkCol).drawRect(0, 0, right - left, bottom - top);
+
+        this.readoutPanelText = new createjs.Text("test", "14px Arial", "rgba(0,0,0,0.75)");
+
+        this.readoutPanelContainer.addChild(this.readoutPanelBackground);
+
+        this.readoutPanelContainer.addChild(this.readoutPanelText);
+
+        this.updateReadout = function (str) {
+            this.readoutPanelText.text = str;
+            stage.update();
+
+        }
+
+
+        this.readoutPanelContainer.x = left;
+        this.readoutPanelContainer.y = top;
+
+
+        stage.addChild(this.readoutPanelContainer);
+
+
+        stage.update();
+
+
+    }
+
+//constructor function for the dragable events points.
+    function DragPoint(str, xHome, yHome, pointIx) {
+
+
+        this.pointIx = pointIx;
+        this.str = str;
+        this.xHome = xHome;
+        this.yHome = yHome;
+        this.active = false;
+        this.parked = true;
+        this.pointXT = new PointXT(0, 0);
+        //this.lock = false;
+        //this.connects =[];//contains ix values in drags[] of connected points.
+        this.lines = [];//at the ix values above contains the connecting line.
+        this.locked = [];//whether the line value above can be altered.
+        var k;
+        var maxLines = 11;
+        for (k = 0; k < maxLines; k++) {
+            this.lines[k] = notUsed;
+            this.locked[k] = false;
+        }
+        ;
+
+
+        // the ghost prefixed structures are the parts the user drags
+        this.ghostLabel = new createjs.Text(str, ghostStyle, ghostColour);
+        this.ghostBackground = new createjs.Shape();
+        this.ghostContainer = new createjs.Container();
+
+
+        //the centre of rectangle at origin in container space
+        this.ghostBackground.graphics.beginFill(dragHandleColour).drawCircle(0, 0, ghostRadius);
+
+
+        //the label origin is at the to left of the character
+        this.ghostLabel.x = xGhostLabel;
+        this.ghostLabel.y = yGhostLabel;
+
+        this.ghostContainer.addChild(this.ghostBackground);
+
+        this.ghostContainer.addChild(this.ghostLabel);
+
+        this.ghostContainer.x = xHome;
+        this.ghostContainer.y = yHome;
+
+
+        //now define the actual point that designates an event and its label
+        this.p = new createjs.Shape();
+
+        this.pLabel = new createjs.Text(str, pointLabelStyle, pointLabelColour);
+
+        this.xOff = integerParity(pointIx) * xPointOffset;
+        this.yOff = 0;
+
+
+        this.testCol = "black";
+
+        //next line is crucial technique!
+        var self = this;
+
+        this.updatePanels = function () {
+
+            readoutPanelRed.updateReadout(getRedData());
+            readoutPanelBlue.updateReadout(getBlueData());
+        }
+
+
+        this.ghostBackground.addEventListener("mousedown", function (evt) {
+
+            globalIx = self.pointIx;
+            readoutPanelRed.updateReadout(getRedData());
+            readoutPanelBlue.updateReadout(getBlueData());
+
+
+        });
+
+
+        this.p.x = this.ghostContainer.x + this.xOff;
+        this.p.y = this.ghostContainer.y + this.yOff;
+        //this.p.graphics.beginFill(self.testCol).drawCircle(0, 0,pointRadius);
+        this.p.graphics.beginFill(pointLabelColour).drawCircle(0, 0, pointRadius);
+        this.pLabel.x = this.p.x + xPointLabel;
+        this.pLabel.y = this.p.y + yPointLabel;
+
+        var width = plFr.r - plFr.l;
+        var centreFramex = plFr.l + width / 2;
+
+
+        self.pointXT.x = ((unitX * nSquares) / width) * (self.p.x - centreFramex);
+
+
+        var height = plFr.b - plFr.t;
+        var centreFramey = plFr.t + height / 2;
+
+        self.pointXT.t = ((unitT * nSquares) / height) * (centreFramey - self.p.y);
+        //document.getElementById("pX").innerHTML =  str + " " +(self.pointXT.x).toPrecision(3) + "   " +
+        //(self.pointXT.t).toPrecision(3);
+
+        function getRedData() {
+
+            if (restColor == "red") {
+                return (str + " RED  " + " x: " + (self.pointXT.x).toPrecision(3) + " m " + "  t: " +
+                (self.pointXT.t).toPrecision(3) + " s")
+            }
+
+            else {
+                lorentzTransPointModify(self.pointXT, v, tempPoint);
+
+                return (str + " RED  " + " x: " + (tempPoint.x).toPrecision(3) + " m " + "  t: " +
+                (tempPoint.t).toPrecision(3) + " s")
+            }
+        }
+
+        function getBlueData() {
+
+            if (restColor == "blue") {
+                return (str + " BLUE" + " x: " + (self.pointXT.x).toPrecision(3) + " m " + "  t: " +
+                (self.pointXT.t).toPrecision(3) + " s")
+            }
+            else {
+                lorentzTransPointModify(self.pointXT, v, tempPoint);
+
+                return (str + " BLUE" + " x: " + (tempPoint.x).toPrecision(3) + " m " + "  t: " +
+                (tempPoint.t).toPrecision(3) + " s")
+
+            }
+        }
+
+
+        var f = function drag(evt) {
+
+
+            globalIx = self.pointIx;
+
+            evt.nativeEvent.preventDefault();
+            //self.testCol = "black";
+            evt.currentTarget.x = evt.stageX;
+            evt.currentTarget.y = evt.stageY;
+            self.p.x = self.ghostContainer.x + self.xOff;
+            self.p.y = self.ghostContainer.y + self.yOff;
+            self.p.graphics.clear();
+            //try putting a callback here
+            self.p.graphics.beginFill(pointLabelColour).drawCircle(0, 0, pointRadius);
+            self.pLabel.x = self.p.x + xPointLabel;
+            self.pLabel.y = self.p.y + yPointLabel;
+            var width = plFr.r - plFr.l;
+            var centreFramex = plFr.l + width / 2;
+            self.pointXT.x = ((unitX * nSquares) / width) * (self.p.x - centreFramex);
+            var height = plFr.b - plFr.t;
+            var centreFramey = plFr.t + height / 2;
+
+            self.pointXT.t = ((unitT * nSquares) / height) * (centreFramey - self.p.y);
+
+
+            (self.pointXT.t).toPrecision(3);
+
+
+            readoutPanelRed.updateReadout(getRedData());
+            readoutPanelBlue.updateReadout(getBlueData());
+
+
+            //scan for overlap.
+            var ix, x1, y1, x2, y2;
+            x1 = self.p.x;
+            y1 = self.p.y;
+
+
+            for (ix = 0; ix < drags.length; ix++) {
+
+
+                if ((self.pointIx != ix )) {
+
+
+                    x2 = drags[ix].p.x;
+                    y2 = drags[ix].p.y;
+                    if (isNear(x1, y1, x2, y2)) {
+
+
+                        if ((self.lines[ix] == notUsed)) {
+
+                            if (self.locked[ix] == false) {
+                                self.lines[ix] = new createjs.Shape();
+                                drags[ix].lines[self.pointIx] = self.lines[ix];
+                                stage.addChild(self.lines[ix]);
+                                self.locked[ix] = true;
+                            }
+
+                        }
+
+
+                        else {
+
+                            if (self.locked[ix] == true) {
+
+                                var l = (self.lines[ix]);
+                                l.graphics.clear();
+                                drawConnectingLine(l, x1, y1, x2, y2);
+                            }
+
+                            else {
+
+                                var l = (self.lines[ix]);
+                                l.graphics.clear();
+
+                                self.lines[ix] = notUsed;
+                                drags[ix].lines[self.pointIx] = notUsed;
+
+                                self.locked[ix] = true;
+                                drags[ix].locked[self.pointIx] = true; //try this!
+
+                                stage.removeChild(l);
+
+
+                            }
+
+
+                        }
+
+                    }
+                    else {
+                        self.locked[ix] = false;
+                        if (self.lines[ix] != notUsed) {
+                            var l = (self.lines[ix]);
+
+                            l.graphics.clear();
+                            //stage.update();
+
+                            drawConnectingLine(l, x1, y1, x2, y2);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //debugging line - might be useful in future!
+            //document.getElementById("pX").innerHTML = (stage.numChildren).toString();
+            stage.update();
+
+        }
+
+
+        this.updateXT = function (vel) {
+
+            //var tempPoint = newPointXT();
+
+            self.pointXT = lorentzTransPoint(self.pointXT, vel);
+
+            var width = plFr.r - plFr.l;
+            var centreFramex = plFr.l + width / 2;
+            var height = plFr.b - plFr.t;
+            var centreFramey = plFr.t + height / 2;
+
+            self.p.x = centreFramex + (width / (unitX * nSquares)) * self.pointXT.x;
+
+
+            self.p.y = centreFramey - ((height / (unitT * nSquares)) * self.pointXT.t);
+            //document.getElementById("pX").innerHTML = self.p.x + "  " + self.p.y;
+            self.ghostContainer.x = self.p.x - self.xOff;
+            self.ghostContainer.y = self.p.y - self.yOff;
+
+            self.p.graphics.clear();
+            self.p.graphics.beginFill(pointLabelColour).drawCircle(0, 0, pointRadius);
+            self.pLabel.x = self.p.x + xPointLabel;
+            self.pLabel.y = self.p.y + yPointLabel;
+            stage.update();
+            //document.getElementById("pX").innerHTML = str + " " + (self.pointXT.x).toPrecision(3) + "   " +
+            // (self.pointXT.t).toPrecision(3);
+
+        }
+
+        this.updateScale = function () {
+
+            //var tempPoint = newPointXT();
+
+
+            var width = plFr.r - plFr.l;
+            var centreFramex = plFr.l + width / 2;
+            var height = plFr.b - plFr.t;
+            var centreFramey = plFr.t + height / 2;
+
+            self.p.x = centreFramex + (width / (unitX * nSquares)) * self.pointXT.x;
+
+
+            self.p.y = centreFramey - ((height / (unitT * nSquares)) * self.pointXT.t);
+            //document.getElementById("pX").innerHTML = self.p.x + "  " + self.p.y;
+            self.ghostContainer.x = self.p.x - self.xOff;
+            self.ghostContainer.y = self.p.y - self.yOff;
+
+            self.p.graphics.clear();
+            self.p.graphics.beginFill(pointLabelColour).drawCircle(0, 0, pointRadius);
+            self.pLabel.x = self.p.x + xPointLabel;
+            self.pLabel.y = self.p.y;
+            stage.update();
+            //document.getElementById("pX").innerHTML =  str + " " +(self.pointXT.x).toPrecision(3) + "   " +
+            // (self.pointXT.t).toPrecision(3);
+
+        }
+
+
+        var g = function readout(evt) {
+            evt.nativeEvent.preventDefault();
+            //document.getElementById("pX").innerHTML =  str + " " +(self.pointXT.x).toPrecision(3) + "   " +
+            //(self.pointXT.t).toPrecision(3);
+        }
+
+        this.ghostContainer.on("mousedown", g)
+        this.ghostContainer.on("pressmove", f);
+        stage.addChild(this.ghostContainer);
+        stage.addChild(this.p);
+        //stage.addChild(this.pLabel);
+
+        stage.update();
+    }
+
+    function updateAllConnects() {
+
+        //update each Line for each point.
+
+        var z, j, drag1, drag2, testLine, testLine2;
+        var x1, y1, x2, y2, X1, T1, X2, T2;
+        var width = plFr.r - plFr.l;
+        var centreFramex = plFr.l + width / 2;
+        var height = plFr.b - plFr.t;
+        var centreFramey = plFr.t + height / 2;
+
+        for (z = 0; z < drags.length; z++) {
+            drag1 = drags[z];
+            X1 = drag1.pointXT.x;
+            T1 = drag1.pointXT.t;
+
+            x1 = centreFramex + (width / (unitX * nSquares)) * X1;
+            y1 = centreFramey - ((height / (unitT * nSquares)) * T1);
+
+            for (j = 0; j < drag1.lines.length; j++) {
+                if (( j != z) && (drag1.lines[j] != notUsed)) {
+
+                    testLine = drags[z].lines[j];
+                    testLine2 = drags[j].lines[z];
+                    drag2 = drags[j];
+
+                    X2 = drag2.pointXT.x;
+                    T2 = drag2.pointXT.t;
+
+                    x2 = centreFramex + (width / (unitX * nSquares)) * X2;
+                    y2 = centreFramey - ((height / (unitT * nSquares)) * T2);
+
+
+                    if (justLoaded) {
+                        stage.removeChild(testLine);
+                        stage.removeChild(testLine2);
+
+                        newLine = new createjs.Shape();
+                        stage.addChild(newLine);
+                        drags[j].lines[z] = newLine;
+                        drags[z].lines[j] = newLine;
+
+                        drawConnectingLine(newLine, x1, y1, x2, y2);
+                    }
+                    if (!justLoaded) {
+                        testLine.graphics.clear();
+                        testLine2.graphics.clear();
+                        drawConnectingLine(testLine, x1, y1, x2, y2)
+                    }
+                }
+            }
+
+        }
+        justLoaded = false;
+        stage.update();
+    }
+
+    function drawConnectingLine(g, x1, y1, x2, y2) {
+
+        var aspect = c / unitX;
+        var speed = Math.abs((x2 - x1) / ((y2 - y1) * aspect));
+
+        var lineColour = "black";
+        g.graphics.setStrokeStyle(1);
+
+        if ((speed > (1 - lightEpsilon)) && (speed < (1 + lightEpsilon))) {
+            lineColour = "rgba(153,153,0,1)"
+            g.graphics.setStrokeStyle(2);
+            g.graphics.setStrokeDash([2, 2]);
+
+
+        }
+
+        if (speed > (1 + lightEpsilon)) {
+            lineColour = "rgba(128,128,128,0.5)";
+            g.graphics.setStrokeDash([5, 10]);
+
+
+        }
+
+
+        g.x = x1;
+        g.y = y1;
+
+
+        g.graphics.beginStroke(lineColour);
+        g.graphics.moveTo(0, 0);
+        g.graphics.lineTo(x2 - x1, y2 - y1);
+    }
+
+// the following functions mainly handle json save/load
+
+    function saveState() {
+
+        modeString(); //check currentModeString is up todate!
+        var dx, lx;
+        var nd = 11;
+        var nLines = 11;
+        var tempLineState;
+
+
+
+        ss = new Ss();
+
+        for (dx = 0; dx < nd; dx++) {
+
+
+            ss.srEvents[dx].eventLabel = drags[dx].str;
+            ss.briefNote = briefNote;
+            ss.srEvents[dx].pointXT.x = drags[dx].pointXT.x;
+            ss.srEvents[dx].pointXT.t = drags[dx].pointXT.t;
+            ss.grids = nSquares;
+            ss.mode = currentModeString;
+            ss.restFrameDoNotEdit = restColor;
+            ss.velocity = v.toPrecision(6);
+            ss.gridOpacity = gridOpacity;
+            ss.gridsStyle = gridsStyle;
+
+            for (lx = 0; lx < nLines; lx++) {
+
+                tempLineState = drags[dx].lines[lx];
+                if (tempLineState != notUsed) tempLineState = used;
+                // ss.srEvents[dx].lines[lx] = tempLineState;
+                if (tempLineState != notUsed) ss.srEvents[dx].connects.push(lx.toString());//now test
+            }
+        }
+
+
+        jsonObjToSave = JSON.stringify(ss, null, "    ");
+
+        document.getElementById("textArea1").value = jsonObjToSave;
+
+    }
+
+
+    function Ss() {
+        var nd = 11;
+        var dx;
+
+
+        this.description = descript;
+
+        this.authorEmail = "wrcstewart@yahoo.co.uk";
+
+        this.srAppVersion = srAppV;
+        this.appURL = appU;
+        this.jsonStorageURL = jsonStorageU;
+        this.briefNote = briefNote;
+
+        this.velocity = v.toPrecision(6);
+
+        this.grids = 20;
+        this.mode = currentModeString;
+        this.gridOpacity = gridOpacity;
+        this.gridsStyle = gridsStyle;
+        this.srEvents = []; //drags
+
+        for (dx = 0; dx < nd; dx++) {
+
+            this.srEvents[dx] = new D();
+        }
+        this.restFrameDoNotEdit = "red";
+    }
+
+    function D() {  //a drag state
+        var lx;
+        var nLines = 11;
+        this.eventLabel = "undefined";
+        this.connects = [];
+        this.pointXT = new PointXT(0, 0);
+        this.pointXT.x = 0;
+        this.pointXT.t = 0;
+    }
+
+
+    function getSliderVal(restColor) {
+
+        if (restColor == "red") return (sliderR.value);
+        return sliderB.value;
+
+    }
+
+    function setSliderVal(restColor) {
+
+        if (restColor == "red") {
+            sliderR.value = val
+        } else {
+            sliderB.value = val
+        }
+        readoutPanelGrey2.updateReadout(velocityString());
+        dummy6 = 7;
+
+    }
+
+
+    function clearAllLines() {
+
+
+        var dragIx;
+        var curLine;
+        var lenLinesArray;
+        var loop;
+        for (dragIx = 0; dragIx < drags.length; dragIx++) {
+            lenLinesArray = drags[dragIx].lines.length;
+            for (loop = 0; loop < lenLinesArray; loop++) {
+                curLine = drags[dragIx].lines[loop];
+
+                if (curLine != notUsed) {
+                    curLine.graphics.clear()
+                }
+            }
+        }
+        stage.update();
+    }
+
+
+    function loadState() {
+
+        var dx, lx;
+        var nd = 11;
+        var nLines = 11;
+        //var tempLineState;
+        var tempV;
+        var tempSlider;
+
+
+        clearAllLines();
+
+        var copyText = document.getElementById("textArea1").value;
+        if (!loadFromPresets) ss = JSON.parse(copyText);
+        if (loadFromPresets) ss = JSON.parse(srPresets[curChap][curSect]);
+
+        document.getElementById("titleArea").value = ss.description;
+
+
+        for (dx = 0; dx < nd; dx++) {
+
+
+            drags[dx].pointXT.x = ss.srEvents[dx].pointXT.x;
+            drags[dx].pointXT.t = ss.srEvents[dx].pointXT.t;
+
+            drags[dx].str = ss.srEvents[dx].eventLabel;
+            drags[dx].ghostLabel.text = drags[dx].str;
+
+
+            for (lx = 0; lx < nLines; lx++) {
+
+                if (ss.srEvents[dx].connects.includes(lx.toString())) {
+
+                    drags[dx].lines[lx] = used;
+
+                }
+                else {
+
+                    drags[dx].lines[lx] = notUsed;
+
+                }
+            }
+        }
+
+        justLoaded = true;
+
+
+        updateAllConnects()
+
+        stage.update();
+
+
+        if (ss.restFrameDoNotEdit != restColor) {
+            swopFrames();
+            updateXTDrags(v)
+        }
+
+
+
+
+        nSquares = ss.grids;
+        nSquaresStr = nSquares.toString();
+        gridOpacity = ss.gridOpacity;
+        gridsStyle = ss.gridsStyle;
+        setAllColours(restColor);
+        tempV = parseFloat(ss.velocity);
+        briefNote = ss.briefNote;
+        v = tempV;
+        scaleChange(nSquaresStr);
+        tempSlider = unprocessSlider(mxSlider, compressionMin, compressionMax, tempV);
+        val = tempSlider;
+        setSliderVal(restColor);
+
+
+        pressSquaresButton(nSquaresStr);
+
+
+        function pressSquaresButton(nSquaresStr) {
+
+
+            document.getElementById("squares" + nSquaresStr).value = nSquaresStr;
+            document.getElementById("squares" + nSquaresStr).checked = true;
+            scaleChange(nSquaresStr);
+        }
+
+        currentModeString = ss.mode;
+
+        pressModeButton(currentModeString);
+
+        function pressModeButton(mdStr) {
+
+            document.getElementById("button" + mdStr).value = currentModeString;
+            document.getElementById("button" + mdStr).checked = true;
+            scaleChange(currentModeString);
+
+        }
+
+        justLoaded = true;
+
+
+        updateAllConnects()
+
+        stage.update();
+
+        drags[0].updatePanels();
+    }
+
+    function loadButton() {
+
+        loadFromPresets = false;
+        loadState();
+    }
+
+
+    function onClickShowEditorPanel() {
+
+        hideEditorPanel = !(document.getElementById("showEditor").checked );
+        if (hideEditorPanel) document.getElementById("editorPanel").style.display = 'none';
+        if (!hideEditorPanel) document.getElementById("editorPanel").style.display = 'block';
+    }
+
+
+// allows dump of svg version of graphics.
+    function svgDump() {
+
+        if (Modernizr.adownload) {
+
+            exporter = new SVGExporter(stage, false, false, false);
+            var t = new Date().getTime();
+            exporter.run();
+            //statusEl.innerHTML = "Export took: " + (new Date().getTime() - t) + "ms ";
+            setTimeout(addDownload, 5); // for some reason, it takes a tick for the browser to init the SVG
+            //document.body.appendChild(exporter.svg);
+        }
+
+        else {
+
+            alert("Not supported on this browser use non mobile device");
+        }
+    }
+
+    function addDownload() {
+        var serializer = new XMLSerializer();
+        var svgStr = serializer.serializeToString(exporter.svg);
+        var link = document.createElement("a");
+        link.download = "export.svg";
+        link.innerText = "SAVE SVG TO FILE";
+        link.href = "data:image/svg+xml,\n" + encodeURIComponent(svgStr);
+        //statusEl.appendChild(link);
+        link.click();
+    }
+
+// to do with preset diagram handling
+    function chapIncr() {
+        curSect = 0;
+        var l = srPresets.length;
+        if (curChap == l - 1) return;
+        curChap++
+        while (srPresets[curChap] === undefined) curChap++;
+        loadFromPresets = true;
+        loadState();
+
+    }
+
+    function chapDecr() {
+        curSect = 0;
+
+        if (curChap == 0) return;
+        curChap--;
+        while (srPresets[curChap] === undefined) curChap--;
+        loadFromPresets = true;
+        loadState();
+
+    }
+
+    function sectionIncr() {
+
+        var l = (srPresets[curChap]).length;
+        if (curSect == l - 1) return;
+        curSect++
+        while (srPresets[curChap][curSect] === undefined) curSect++;
+        loadFromPresets = true;
+        loadState();
+
+    }
+
+    function sectionDecr() {
+
+
+        if (curSect == 0) return;
+        curSect--;
+        while (srPresets[curChap][curSect] === undefined) curSect--;
+        loadFromPresets = true;
+        loadState();
+
+    }
+
+
+
+</script>
+
+
+</body>
+
+
+
+
