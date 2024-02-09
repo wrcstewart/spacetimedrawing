@@ -23,3 +23,10 @@ The only exception is section that detects whether two points are sufficiently c
 Good luck sorting it out
 contact me for any help at wrcstewart@yahoo.co.uk
 but i'm afraid I might have forgotten the logic of the code...
+
+A note on the intended usage of the software in the book:
+I was going to use spacetime diag of a light beam reflecting of a mirror in the two frames to show the 
+tilt of the x axis
+then noting the slope of the x axis matches the slope of the calibration curve where t axis intersects it this differential equation (easy to verify) defines a hyperbola - ie therefore Lorentz equations.
+My original aim was to produce a graphic system that could render SR inuitive.
+I believe with enough playing about the student could achieve this.
